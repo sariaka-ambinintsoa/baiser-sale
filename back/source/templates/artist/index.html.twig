@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ArtistController!{% endblock %}
+
+{% block body %}
+                    <div class="container-fluid px-4">
+                        <h1 class="mt-4">Liste des artistes</h1>
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+                            <li class="breadcrumb-item active">Gestion des artistes</li>
+                        </ol>
+
+                         <div>
+                            <a href="{{path("add_artist")}}">Ajouter un nouveau artiste</a>
+                         </div>
+                       <div class="card mb-4">
+
+                   
+                            <div class="card-header">
+                                <i class="fas fa-table me-1"></i>
+                               Liste des artistes
+                            </div>
+                            <div class="card-body">
+                                <table class="table">
+                                        <thead>
+                                            <tr>
+                                            <th scope="col">id</th>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">Role</th>
+                                            <th scope="col">Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            {% for i,artist in artist_list %}
+                                                <tr>
+                                                    <td>{{artist.getId()}}</td>
+                                                    <td>{{artist.getName()}}</td>
+                                                    <td>{{artist.getRole()}}</td>
+                                                    <td><a href="{{path('update_artist',{id:artist.getId()})}}">Modifier</a></td>
+                                                </tr>
+                                            {% endfor %}  
+                                            
+                                        </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+{% endblock %}

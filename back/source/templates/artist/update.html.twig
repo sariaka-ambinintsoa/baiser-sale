@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}Hello ArtistController!{% endblock %}
+
+{% block body %}
+{% form_theme form_update 'bootstrap_5_layout.html.twig' %}
+
+                    <div class="container-fluid px-4">
+                        <h1 class="mt-4">Modifier la liste des artistes</h1>
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+                        </ol>
+                        
+
+                      {{form(form_update)}}
+                        <div>
+                            <a href="{{path("app_artist")}}">Revenir à la page liste des artistes</a>
+                        </div>
+                    </div>
+{% endblock %}
