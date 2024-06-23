@@ -30,9 +30,13 @@ class Groups
     #[ORM\ManyToMany(targetEntity: Artist::class, inversedBy: 'listGroup')]
     private Collection $artists;
 
+    #[ORM\ManyToMany(targetEntity: Concert::class, mappedBy: 'groupName')]
+    private Collection $concerts;
+
     public function __construct()
     {
         $this->artists = new ArrayCollection();
+        $this->concerts = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -96,6 +100,33 @@ class Groups
     public function removeartist(Artist $artist): static
     {
         $this->artists->removeElement($artist);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Concert>
+     */
+    public function getConcerts(): Collection
+    {
+        return $this->concerts;
+    }
+
+    public function addConcert(Concert $concert): static
+    {
+        if (!$this->concerts->contains($concert)) {
+            $this->concerts->add($concert);
+            $concert->addGroupName($this);
+        }
+
+        return $this;
+    }
+
+    public function removeConcert(Concert $concert): static
+    {
+        if ($this->concerts->removeElement($concert)) {
+            $concert->removeGroupName($this);
+        }
 
         return $this;
     }
