@@ -6,6 +6,8 @@ use App\Repository\ArtistRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups as GroupsSerializer;
+
 
 #[ORM\Entity(repositoryClass: ArtistRepository::class)]
 class Artist
@@ -13,15 +15,18 @@ class Artist
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[GroupsSerializer(['list'])]
     private ?int $id = null;
 
+    #[GroupsSerializer(['list'])]
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
+    #[GroupsSerializer(['list'])]
     #[ORM\Column(length: 255)]
     private ?string $role = null;
 
-    #[ORM\ManyToMany(targetEntity: Groups::class, mappedBy: 'artits')]
+    #[ORM\ManyToMany(targetEntity: Groups::class, mappedBy: 'artists')]
     private Collection $listGroup;
 
     public function __construct()

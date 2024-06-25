@@ -37,6 +37,9 @@ class Concert
     #[ORM\ManyToMany(targetEntity: Groups::class, inversedBy: 'concerts')]
     private Collection $groupName;
 
+    #[ORM\Column(length: 255)]
+    private ?string $name = null;
+
     public function __construct()
     {
         $this->groupName = new ArrayCollection();
@@ -45,6 +48,18 @@ class Concert
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): static
+    {
+        $this->name = $name;
+
+        return $this;
     }
 
     public function getDescriptions(): ?string
@@ -142,4 +157,5 @@ class Concert
 
         return $this;
     }
+
 }
