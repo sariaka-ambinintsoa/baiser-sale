@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello GroupController!{% endblock %}
+
+{% block body %}
+                    <div class="container-fluid px-4">
+                        <h1 class="mt-4">Liste des groupes</h1>
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+                            <li class="breadcrumb-item active">Gestion des groupes</li>
+                        </ol>
+
+                         <div>
+                            <a href="{{path("add_group")}}">Ajouter un nouveau groupe</a>
+                          </div>
+                       <div class="card mb-4">
+
+                   
+                            <div class="card-header">
+                                <i class="fas fa-table me-1"></i>
+                               Liste des artistes
+                            </div>
+                            <div class="card-body">
+                                <table class="table">
+                                        <thead>
+                                            <tr>
+                                            <th scope="col">id</th>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">Date de création de groupe</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            {% for i, group in group_list %}
+                                                 <tr>
+                                                    <td>{{group.getId}}</td>
+                                                    <td>{{group.getName}}</td>
+                                                    <td>{{group.getDateCreatedGroup|date("m/d/Y")}}</a></td>
+                                                    <td><a href="{{path('update_group',{id:group.getId()})}}">Modifier</a></td>
+                                                </tr>
+                                             {% endfor %}   
+                                             
+                                        </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+{% endblock %}

@@ -41,14 +41,6 @@ SHELL ["/bin/bash", "--login", "-c"]
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
 RUN nvm install v16.17.0
 
-# Install Cron
-RUN apt-get update && apt-get install -y cron
-RUN echo "* * * * * root php /var/www/artisan schedule:run >> /var/log/cron.log 2>&1" >> /etc/crontab
-RUN touch /var/log/cron.log
-
-CMD bash -c "cron && php-fpm"
-
-RUN pecl install xdebug \
-    && docker-php-ext-enable xdebug \
-    && echo "xdebug.mode=debug" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
-    && echo "xdebug.client_host = host.docker.internal" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+    
+RUN useradd -u 8877 sarika
+USER sarika
